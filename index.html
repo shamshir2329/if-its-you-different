@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>If It's You, It's Different</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+scroll-behavior:smooth;
+}
+
+body{
+font-family:'Poppins',sans-serif;
+background:#0b0b0f;
+color:#f5f5f5;
+overflow-x:hidden;
+}
+
+section{
+min-height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:40px;
+}
+
+h1,h2{
+font-family:'Playfair Display',serif;
+letter-spacing:1px;
+}
+
+.gold{
+color:#d4af37;
+}
+
+.button{
+margin-top:30px;
+padding:12px 30px;
+border:1px solid #d4af37;
+background:transparent;
+color:#d4af37;
+cursor:pointer;
+transition:0.4s;
+font-size:16px;
+}
+
+.button:hover{
+background:#d4af37;
+color:#000;
+}
+
+.fade{
+opacity:0;
+transform:translateY(30px);
+transition:all 1s ease;
+}
+
+.fade.show{
+opacity:1;
+transform:translateY(0);
+}
+
+.cards{
+display:flex;
+flex-wrap:wrap;
+gap:30px;
+margin-top:40px;
+justify-content:center;
+}
+
+.card{
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(10px);
+border:1px solid rgba(212,175,55,0.3);
+padding:25px;
+width:260px;
+border-radius:10px;
+transition:0.4s;
+}
+
+.card:hover{
+transform:translateY(-10px);
+border-color:#d4af37;
+}
+
+#letter{
+display:none;
+margin-top:30px;
+max-width:600px;
+line-height:1.8;
+font-size:17px;
+}
+
+.final-text{
+font-size:28px;
+max-width:700px;
+}
+
+.heart{
+position:fixed;
+color:#d4af37;
+animation:float 4s linear infinite;
+opacity:0.8;
+}
+
+@keyframes float{
+0%{transform:translateY(0) scale(1);}
+100%{transform:translateY(-800px) scale(1.5);opacity:0;}
+}
+
+@media(max-width:768px){
+.cards{
+flex-direction:column;
+align-items:center;
+}
+}
+</style>
+</head>
+
+<body>
+
+<!-- Intro Section -->
+<section>
+<h1 class="fade gold">Some people enter your life...</h1>
+<h2 class="fade" style="margin-top:15px;">And suddenly everything feels different.</h2>
+<button class="button fade" onclick="scrollToNext()">Enter My World</button>
+</section>
+
+<!-- Realisation -->
+<section>
+<h2 class="gold fade">I wasn't looking for something serious...</h2>
+<h2 class="fade" style="margin-top:15px;">But then you happened.</h2>
+</section>
+
+<!-- Why You’re Different -->
+<section>
+<h2 class="gold fade">Why You’re Different</h2>
+<div class="cards">
+<div class="card fade">
+<h3 class="gold">Your Smile</h3>
+<p>The way it changes my mood without even trying.</p>
+</div>
+<div class="card fade">
+<h3 class="gold">Your Presence</h3>
+<p>You make ordinary moments feel meaningful.</p>
+</div>
+<div class="card fade">
+<h3 class="gold">Your Energy</h3>
+<p>There’s calm, comfort and something rare in you.</p>
+</div>
+</div>
+</section>
+
+<!-- Letter -->
+<section>
+<h2 class="gold fade">A Small Letter For You</h2>
+<button class="button fade" onclick="openLetter()">Open Letter</button>
+<div id="letter">
+<p>
+I don’t know where this journey will take us.  
+I don’t know what the future is planning.  
+But I do know this —  
+what I feel with you is different.  
+It’s not rushed. It’s not loud.  
+It’s intentional.  
+
+And if it’s you…  
+I’m willing to explore what this could become.
+</p>
+</div>
+</section>
+
+<!-- Final -->
+<section>
+<div class="final-text fade">
+“I don’t know what the future holds…  
+But if it’s with you, I’m ready.”
+</div>
+<button class="button fade" onclick="celebrate()">Stay With Me</button>
+</section>
+
+<script>
+function scrollToNext(){
+window.scrollBy({top:window.innerHeight,behavior:'smooth'});
+}
+
+function openLetter(){
+document.getElementById("letter").style.display="block";
+}
+
+function celebrate(){
+for(let i=0;i<20;i++){
+let heart=document.createElement("div");
+heart.innerHTML="❤";
+heart.classList.add("heart");
+heart.style.left=Math.random()*100+"vw";
+heart.style.bottom="0";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),4000);
+}
+}
+
+const faders=document.querySelectorAll('.fade');
+const appearOptions={threshold:0.3};
+
+const appearOnScroll=new IntersectionObserver(function(entries,appearOnScroll){
+entries.forEach(entry=>{
+if(!entry.isIntersecting){return;}
+entry.target.classList.add('show');
+appearOnScroll.unobserve(entry.target);
+});
+},appearOptions);
+
+faders.forEach(fader=>{
+appearOnScroll.observe(fader);
+});
+</script>
+
+</body>
+</html>
